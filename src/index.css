@@ -1,0 +1,84 @@
+/* src/style.css */
+@import "tailwindcss";
+/* index.css or App.css */
+html, body {
+  overflow-x: hidden; /* Prevent side-scrolling */
+  overflow-y: auto;   /* ENSURE vertical scrolling is allowed */
+  height: auto;       /* Let the page grow with content */
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Helps with stuttering on high-refresh rate monitors */
+  scrollbar-gutter: stable; 
+}
+
+body {
+  margin: 0;
+  background-color: #001014;
+  /* Hardware acceleration for smoother animations */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Add this to prevent the "jumpy" feeling of the stack */
+#projects {
+  will-change: transform;
+  transform: translateZ(0);
+}
+/* index.css */
+.scroll-stack-container {
+  /* Forces the browser to prepare for animation */
+  will-change: transform;
+  /* Activates hardware acceleration */
+  transform: translateZ(0);
+}
+
+.scroll-stack-item {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Activates GPU acceleration */
+  backface-visibility: hidden;
+  perspective: 1000px;
+  /* Add a smooth ease-out transition to dampen jerky scroll movements */
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+/* Custom Scrollbar for Chrome, Safari, and Edge */
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #000; /* Matches your black background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #7cff67, #B19EEF); /* Gradient matching your Aurora theme */
+  border-radius: 10px;
+  border: 2px solid #000; /* Adds a gap effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7cff67; /* Glows green when hovered */
+}
+
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7cff67 #000;
+}
+
+/* Changes the cursor for the entire page */
+body {
+  cursor: crosshair;
+}
+
+/* Changes the cursor only when hovering over a specific button */
+.my-button {
+  cursor: pointer;
+}
+
+/* Indicates a disabled state */
+.disabled-input {
+  cursor: not-allowed;
+}
