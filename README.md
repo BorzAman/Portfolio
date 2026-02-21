@@ -1,16 +1,40 @@
-# React + Vite
+# ⚛️ Aman | Full-Stack Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my personal developer portfolio! This project is a high-performance, visually engaging web application built to showcase my journey, skills, and projects as a Software Engineer and B.Tech student.
 
-Currently, two official plugins are available:
+🌐 **Live Demo:** [aman-98.vercel.app](https://aman-98.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Modern UI/UX Design:** A deep navy/obsidian theme paired with vibrant Neon Green (`#7bff69`) and Cyan (`#04d6fa`) accents.
+- **Advanced Animations:** Buttery-smooth scroll animations, staggering elements, and spring transitions powered by **Framer Motion**.
+- **Interactive "Magic Bento" Cards:** Custom CSS-based glowing borders that track the user's mouse movement for a premium feel.
+- **Dynamic Navigation:** An Intersection Observer-powered Navbar that dynamically updates the active section text as you scroll.
+- **Custom Aurora Background:** A visually stunning, animated background gradient with a subtle dot-grid overlay.
+- **Embedded Audio:** A seamless, custom-built toggleable background music feature.
+- **Fully Responsive:** Perfectly optimized for desktop, tablet, and mobile devices with a custom animated mobile drawer.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React.js, HTML5, CSS3
+- **Animations:** Framer Motion
+- **Deployment:** Vercel
+- **Typography:** Poppins (Google Fonts)
+- **Icons:** Custom SVGs
+
+## 🚀 Projects Showcased
+
+1. **Foodingo:** A full-featured food delivery ecosystem built with the MERN stack featuring real-time tracking and secure payments.
+2. **Animal Report:** An intelligent classification app leveraging React, Node.js, Firebase, and the Gemini AI API for biological reporting.
+3. **DigitalGram Seva:** A full-stack E-Governance web application (MERN) aimed at rural digitization and grievance management.
+4. **Portfolio (This Site):** A high-performance showcase built with React and advanced Framer Motion techniques.
+
+## 💻 Local Setup & Installation
+
+To run this project locally on your machine, follow these steps:
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/BorzAman/your-repo-name.git](https://github.com/BorzAman/your-repo-name.git)
