@@ -8,6 +8,7 @@ const GitHubIcon = () => (
   </svg>
 );
 
+
 const ExternalLinkIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -224,20 +225,20 @@ const Projects = () => {
       year: "2025", 
       longDescription: "A full-featured food delivery ecosystem built with the MERN stack. Features real-time order tracking, secure Stripe payments, and a dynamic dashboard.", 
       color: "#7bff69", 
-      image: "/food.jpg",
+      image: "/food.png",
       tags: ["React", "Node.js", "MongoDB", "Socket.io"],
-      github: "https://github.com/BorzAman",
-      live: "https://your-live-link.com"
+      github: "https://github.com/BorzAman/Food-Delivery-Website",
+      live: "https://foodingofooddelivery.onrender.com/"
     },
     { 
       title: "Animal Report", 
       year: "2026", 
       longDescription: "An intelligent classification app leveraging the Gemini AI API. Generates detailed biological reports and habitat insights from wildlife images.", 
       color: "#07d6f7", 
-      image: "/animal.jpeg",
+      image: "/animal.png",
       tags: ["React", "Node.js", "Firebase", "Gemini API"],
-      github: "https://github.com/BorzAman",
-      live: "https://your-live-link.com"
+      github: "https://github.com/BorzAman/Animal-Report-App",
+      live: "https://animal-report-app.vercel.app/"
     },
     { 
       title: "Portfolio", 
@@ -246,8 +247,8 @@ const Projects = () => {
       color: "#7bff69", 
       image: "/portfolio.png",
       tags: ["React", "Vite", "Framer Motion"],
-      github: "https://github.com/BorzAman",
-      live: "https://your-live-link.com"
+      github: "https://github.com/BorzAman/Portfolio",
+      live: "https://aman-98.vercel.app/"
     },
     { 
       title: "DigitalGram Seva", 
@@ -256,8 +257,8 @@ const Projects = () => {
       color: "#07d6f7", 
       image: "/gramseva.png", 
       tags: ["React", "Node.js", "MongoDB", "Express"],
-      github: "https://github.com/BorzAman",
-      live: "https://your-live-link.com"
+      github: "https://github.com/SarthakPardeshi/Gramseva/",
+      live: "https://gramseva-seven.vercel.app/"
     }
   ];
 
