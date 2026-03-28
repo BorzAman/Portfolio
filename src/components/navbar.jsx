@@ -5,10 +5,26 @@ const Navbar = () => {
   const [time, setTime] = useState(new Date().toLocaleTimeString('en-GB', { hour12: false }));
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  
+  const menuRef = useRef(null);
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  if (isMobileMenuOpen) {
+    document.addEventListener("mousedown", handleClickOutside);
+  }
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [isMobileMenuOpen]);
+
   // --- State to track the currently active section ---
   const [activeSection, setActiveSection] = useState('Home');
-  
+
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
@@ -16,13 +32,13 @@ const Navbar = () => {
     const timer = setInterval(() => {
       setTime(new Date().toLocaleTimeString('en-GB', { hour12: false }));
     }, 1000);
-    
+
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
 
     // --- Intersection Observer to detect scroll position ---
-    const sections = ['home', 'about', 'projects', 'contact']; 
-    
+    const sections = ['home', 'about', 'projects', 'contact'];
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -46,7 +62,7 @@ const Navbar = () => {
     return () => {
       clearInterval(timer);
       window.removeEventListener('resize', handleResize);
-      observer.disconnect(); 
+      observer.disconnect();
     };
   }, []);
 
@@ -79,7 +95,7 @@ const Navbar = () => {
 
       <audio ref={audioRef} src="/better_call_saul.mp3" loop />
 
-      <motion.div 
+      <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -105,25 +121,25 @@ const Navbar = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0 24px',
-          borderRadius: '24px', 
+          borderRadius: '24px',
           border: '1px solid rgba(255, 255, 255, 0.08)',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
           fontFamily: 'Inter, system-ui, sans-serif',
           color: '#ffffff'
         }}>
-          
+
           {/* Logo with hover effect and pointer */}
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.05 }}
             style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: '600', fontSize: '0.95rem', cursor: 'pointer' }}
           >
-            <span style={{ color: '#7cff67' }}>⚛</span> 
-            <span>Aman</span>
+            <span style={{ color: '#7cff67' }}>⚛</span>
+            <span style={{ color: '#7cff67' }}>Aman</span>
           </motion.div>
 
           {!isMobile && (
             <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-              
+
               <a href={`#${activeSection.toLowerCase()}`} style={{ textDecoration: 'none', cursor: 'pointer' }}>
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -165,14 +181,14 @@ const Navbar = () => {
                   {link.name}
                 </motion.a>
               ))}
-              
-              <motion.span 
-                onClick={toggleMusic} 
+
+              <motion.span
+                onClick={toggleMusic}
                 whileHover={{ scale: 1.2, textShadow: '0 0 10px rgba(124, 255, 103, 0.6)' }}
-                style={{ 
+                style={{
                   cursor: 'pointer',
                   color: isPlaying ? '#7cff67' : '#888',
-                  fontSize: '1.4rem', 
+                  fontSize: '1.4rem',
                   display: 'flex',
                   alignItems: 'center'
                 }}
@@ -193,26 +209,26 @@ const Navbar = () => {
                   fontSize: '0.85rem',
                   color: '#888',
                   borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
-                  paddingLeft: '16px',
+                  paddingLeft: '20px',
                   cursor: 'pointer',
                   transition: 'color 0.3s ease'
                 }}
               >
-                <span style={{ 
-                  height: '6px', 
-                  width: '6px', 
-                  backgroundColor: '#7cff67', 
+                <span style={{
+                  width: '8px',
+                  height: '8px',
+                  backgroundColor: '#7cff67',
                   borderRadius: '50%',
-                  animation: 'blink 1.5s infinite ease-in-out',
+                  animation: 'blink 2s infinite ease-in-out',
                   boxShadow: '0 0 8px #7cff67'
                 }}></span>
                 {time}
               </motion.div>
             )}
 
-            <motion.a 
-              href="https://github.com/BorzAman" 
-              target="_blank" 
+            <motion.a
+              href="https://github.com/BorzAman"
+              target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.2, rotate: 5 }}
               style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', cursor: 'pointer' }}
@@ -223,23 +239,64 @@ const Navbar = () => {
             </motion.a>
 
             {isMobile && (
-              <button 
+              <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                style={{ background: 'none', border: 'none', color: 'white', fontSize: '1.2rem', cursor: 'pointer' }}
+                whileTap={{ scale: 0.85 }}
+                animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'white',
+                  fontSize: '1.4rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
               >
-                {isMobileMenuOpen ? '✕' : '☰'}
-              </button>
-            )}
-          </div>
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={isMobileMenuOpen ? 'close' : 'menu'}
+                    initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {isMobileMenuOpen ? '✕' : '☰'}
+                  </motion.span>
+                </AnimatePresence>
+              </motion.button>
+            )}          </div>
         </nav>
       </motion.div>
 
       <AnimatePresence>
         {isMobile && isMobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: -20 }}
+          <motion.div
+          ref={menuRef}
+            initial={{ opacity: 0, scale: 0.95, y: -30, filter: 'blur(10px)' }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              filter: 'blur(0px)',
+              transition: {
+                type: 'spring',
+                stiffness: 120,
+                damping: 15,
+                mass: 0.8,
+                when: "beforeChildren",
+                staggerChildren: 0.08
+              }
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.95,
+              y: -20,
+              filter: 'blur(8px)',
+              transition: { duration: 0.25 }
+            }}
             style={{
               position: 'fixed',
               top: '80px',
@@ -253,67 +310,79 @@ const Navbar = () => {
               padding: '24px',
               gap: '20px',
               border: '1px solid rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(20px)'
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
             }}
           >
             {['Home', 'About', 'Projects', 'Contact'].map((text) => (
-              <motion.a 
-                key={text} 
-                href={`#${text.toLowerCase()}`} 
-                onClick={() => setIsMobileMenuOpen(false)} 
-                whileHover={{ x: 5, color: '#fff', textShadow: '0 0 8px rgba(255,255,255,0.5)' }}
-                style={{ color: '#888', textDecoration: 'none', fontSize: '1rem', cursor: 'pointer', transition: 'color 0.2s' }}
+              <motion.a
+                key={text}
+                href={`#${text.toLowerCase()}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                whileHover={{ x: 8, color: '#fff', textShadow: '0 0 10px rgba(255,255,255,0.6)' }}
+                transition={{ type: 'spring', stiffness: 200 }}
+                style={{ color: '#888', textDecoration: 'none', fontSize: '1rem', cursor: 'pointer' }}
               >
                 {text}
               </motion.a>
             ))}
-            
-            {/* Added LinkedIn and Resume to Mobile Menu */}
+
             {externalLinks.map((link) => (
-              <motion.a 
+              <motion.a
                 key={link.name}
-                href={link.url} 
+                href={link.url}
                 target={link.url.startsWith('http') ? '_blank' : '_self'}
                 rel={link.url.startsWith('http') ? 'noopener noreferrer' : ''}
-                onClick={() => setIsMobileMenuOpen(false)} 
-                whileHover={{ x: 5, color: '#fff', textShadow: '0 0 8px rgba(255,255,255,0.5)' }}
-                style={{ color: '#888', textDecoration: 'none', fontSize: '1rem', cursor: 'pointer', transition: 'color 0.2s' }}
+                onClick={() => setIsMobileMenuOpen(false)}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                whileHover={{ x: 8, color: '#fff', textShadow: '0 0 10px rgba(255,255,255,0.6)' }}
+                transition={{ type: 'spring', stiffness: 200 }}
+                style={{ color: '#888', textDecoration: 'none', fontSize: '1rem', cursor: 'pointer' }}
               >
                 {link.name}
               </motion.a>
             ))}
-            
+
             <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }}></div>
-            
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <motion.span 
-                onClick={toggleMusic} 
-                whileHover={{ scale: 1.05, textShadow: '0 0 10px rgba(124, 255, 103, 0.6)' }}
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            >
+              <motion.span
+                onClick={toggleMusic}
+                whileHover={{ scale: 1.1, textShadow: '0 0 12px rgba(124, 255, 103, 0.8)' }}
+                whileTap={{ scale: 0.95 }}
                 style={{ color: isPlaying ? '#7cff67' : '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
               >
                 <span style={{ fontSize: '1.4rem' }}>{isPlaying ? '⏸' : '♫'}</span>
-                {isPlaying ? 'Pause' : 'Music'}
               </motion.span>
-              
+
               <motion.div
-                whileHover={{ scale: 1.05, color: '#fff', textShadow: '0 0 8px rgba(255,255,255,0.3)' }}
+                whileHover={{ scale: 1.08, color: '#fff', textShadow: '0 0 10px rgba(255,255,255,0.4)' }}
                 style={{ color: '#888', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
               >
-                <span style={{ 
-                  height: '6px', 
-                  width: '6px', 
-                  backgroundColor: '#7cff67', 
+                <span style={{
+                  height: '8px',
+                  width: '8px',
+                  backgroundColor: '#7cff67',
                   borderRadius: '50%',
-                  animation: 'blink 1.5s infinite ease-in-out',
-                  boxShadow: '0 0 8px #7cff67'
+                  animation: 'blink 2s infinite ease-in-out',
+                  boxShadow: '0 0 10px #7cff67'
                 }}></span>
                 {time}
               </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </>
+      </AnimatePresence>    </>
   );
 };
 
